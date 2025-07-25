@@ -3,9 +3,11 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Zap, MapPin, Phone, Heart, User, ShoppingCart, AlignJustify, Search, X, Menu } from "lucide-react"
+import { FaInstagram, FaFacebook } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import Image from "next/image"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useCart } from "../contexts/cart-context"
@@ -38,9 +40,24 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+234-800-SHOPELLA</span>
+              <a href="https://instagram.com/shopella" target="_blank" rel="noopener noreferrer" className="ml-2 hover:text-pink-400 transition-colors">
+                <FaInstagram className="w-5 h-5" />
+              </a>
+              <a href="https://facebook.com/shopella" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+                <FaFacebook className="w-5 h-5" />
+              </a>
             </div>
           </div>
-          <Badge className="bg-gray-800 text-white hover:bg-gray-700">Official Delivery Partner</Badge>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/GIG.png"
+              alt="GIG Logistics Logo"
+              width={28}
+              height={28}
+              className="rounded bg-white p-1"
+            />
+            <Badge className="bg-gray-800 text-white hover:bg-gray-700">Official Delivery Partner</Badge>
+          </div>
         </div>
       </div>
 
@@ -135,10 +152,10 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-8">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <Zap className="w-8 h-8 text-yellow-400" />
+              <ShoppingCart className="w-8 h-8 text-yellow-400" />
               <div>
                 <h1 className="text-2xl font-bold">Shopella</h1>
-                <p className="text-xs text-blue-200">Tech That Powers Life</p>
+                <p className="text-xs text-blue-200">always a basket full</p>
               </div>
             </Link>
 
@@ -146,7 +163,7 @@ export default function Header() {
             <div className="flex-1 max-w-2xl">
               <div className="flex">
                 <Input
-                  placeholder="What tech are you looking for today?"
+                  placeholder="find your guaranteed products..."
                   className="rounded-r-none border-0 bg-white text-gray-900 placeholder:text-gray-500 h-12 text-base"
                 />
                 <Button className="rounded-l-none bg-orange-500 hover:bg-orange-600 h-12 px-8 text-base font-semibold">
@@ -188,7 +205,7 @@ export default function Header() {
             <div className="md:hidden mt-3 animate-in slide-in-from-top-2 duration-200">
               <div className="flex gap-2">
                 <Input
-                  placeholder="Search products..."
+                  placeholder="find your guaranteed products..."
                   className="flex-1 bg-white text-gray-900 placeholder:text-gray-500 h-10"
                 />
                 <Button className="bg-orange-500 hover:bg-orange-600 h-10 px-4">

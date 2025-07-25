@@ -1,64 +1,120 @@
+"use client"
+
+
 import Image from "next/image"
+import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function HeroSection() {
+
+  // Carousel data
+  const slides = [
+    {
+      title1: "Boost Now,",
+      title2: "Profit More!",
+      description: "Get noticed by more\nbuyers and sell faster!",
+      image: "/slide1.jpg",
+      bg: "bg-gradient-to-r from-blue-600 to-blue-800",
+      number: "2",
+    },
+    {
+      title1: "Sell Smarter,",
+      title2: "Grow Faster!",
+      description: "Unlock premium features\nand reach more customers!",
+      image: "/slide2.jpg",
+      bg: "bg-gradient-to-r from-green-600 to-green-800",
+      number: "5",
+    },
+    {
+      title1: "Join Shopella,",
+      title2: "Shop Happy!",
+      description: "Discover amazing deals\nand enjoy secure shopping!",
+      image: "/slide3.jpg",
+      bg: "bg-gradient-to-r from-purple-600 to-purple-800",
+      number: "9",
+    },
+  ]
+
+
+  const [current, setCurrent] = useState(0)
+  const slide = slides[current]
+
+  const handlePrev = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
+  const handleNext = () => setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
+
+  // Auto-slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
+    }, 4000) // 4 seconds per slide
+    return () => clearInterval(interval)
+  }, [slides.length])
+
   return (
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-auto lg:h-96">
-      {/* Main Hero Banner */}
-      <Card className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-800 lg:flex-[0.7] min-h-[250px] lg:min-h-0">
+      {/* Main Hero Banner - Carousel */}
+      <Card className={`relative overflow-hidden ${slide.bg} lg:flex-[0.7] min-h-[250px] lg:min-h-0`}>
         <CardContent className="p-0 h-full">
-          <div className="flex flex-col sm:flex-row h-full">
-            <div className="flex-1 p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-center">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 lg:mb-3">Boost Now,</h1>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 lg:mb-5">Profit More!</h1>
-              <p className="text-blue-100 mb-6 lg:mb-8 text-base lg:text-lg">
-                Get noticed by more
-                <br />
-                buyers and sell faster!
-              </p>
-              <div className="text-6xl sm:text-7xl lg:text-9xl font-bold opacity-20">2</div>
-            </div>
-            <div className="flex-1 relative min-h-[200px] sm:min-h-0">
-              <Image
-                src="/placeholder.svg?height=384&width=384"
-                alt="Smiling woman with colorful clothing"
-                fill
-                className="object-cover"
-              />
+          <div className="relative w-full h-[250px] lg:h-full">
+            <Image
+              src={slide.image}
+              alt="Hero Slide"
+              fill
+              className="object-cover"
+              priority
+            />
+            <Button
+              variant="ghost"
+              size="sm"
+              className="absolute left-2 lg:left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-10"
+              onClick={handlePrev}
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="absolute right-2 lg:right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 z-10"
+              onClick={handleNext}
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
+            </Button>
+            {/* Dots indicator */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              {slides.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`w-2 h-2 rounded-full transition-all duration-200 ${idx === current ? "bg-white" : "bg-white/40"}`}
+                />
+              ))}
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute left-2 lg:left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
-          >
-            <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute right-2 lg:right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20"
-          >
-            <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
-          </Button>
         </CardContent>
       </Card>
 
-      {/* Trust Banner */}
-      <Card className="bg-gradient-to-br from-slate-700 to-slate-900 text-white lg:flex-[0.3] min-h-[200px] lg:min-h-0">
-        <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-between">
-          <div>
-            <h2 className="text-lg lg:text-xl font-bold mb-2 lg:mb-3">No Risks, Just</h2>
-            <h2 className="text-lg lg:text-xl font-bold mb-2 lg:mb-3">Trust - Use</h2>
-            <h2 className="text-lg lg:text-xl font-bold text-blue-400">Shopella escrow</h2>
-          </div>
-          <div className="flex justify-end">
-            <div className="relative">
-              <ShoppingBag className="w-12 h-12 lg:w-16 lg:h-16 text-yellow-400" />
-              <ShoppingBag className="w-8 h-8 lg:w-12 lg:h-12 text-blue-400 absolute -bottom-2 lg:-bottom-3 -right-2 lg:-right-3" />
-            </div>
+      {/* Promo Video Banner */}
+      <Card className="relative overflow-hidden bg-black lg:flex-[0.3] min-h-[200px] lg:min-h-0 flex items-center justify-center">
+        <CardContent className="p-0 h-full w-full flex flex-col items-center justify-end relative">
+          <video
+            src="/advideo.mp4"
+            className="w-full h-full object-cover absolute top-0 left-0 z-0"
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls={false}
+            preload="auto"
+            poster="/placeholder.jpg"
+          />
+          <div className="relative z-10 w-full flex flex-col items-center justify-end h-full pb-8">
+            <h2 className="text-white text-lg lg:text-xl font-bold mb-4 drop-shadow-lg">Iphone 16 promax</h2>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded shadow-lg">
+              Buy Now
+            </Button>
           </div>
         </CardContent>
       </Card>

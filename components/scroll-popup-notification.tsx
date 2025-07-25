@@ -5,22 +5,23 @@ import Image from "next/image"
 import { X, Minus, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import SupportFloat from "./support-float"
 
 interface ScrollPopupNotificationProps {
   title?: string
   description?: string
   image?: string
   ctaText?: string
-  ctaAction?: () => void
+  ctaUrl?: string
   scrollThreshold?: number
 }
 
 export default function ScrollPopupNotification({
-  title = "🎉 Special Offer Just for You!",
+  title = "Shopella Deal Offers!",
   description = "Get 20% off your first purchase when you get special offer. Limited time offer!",
   image = "/placeholder.svg?height=80&width=80&text=Offer",
   ctaText = "Special Offer",
-  ctaAction = () => console.log("CTA clicked"),
+  ctaUrl = "https://shopella.ng",
   scrollThreshold = 300,
 }: ScrollPopupNotificationProps) {
   const [isVisible, setIsVisible] = useState(false)
@@ -57,6 +58,7 @@ export default function ScrollPopupNotification({
 
   return (
     <>
+      <SupportFloat />
       {/* Full Popup */}
       {isVisible && !isMinimized && (
         <div className="fixed bottom-6 left-6 z-50 animate-in slide-in-from-left-4 duration-500">
@@ -112,11 +114,13 @@ export default function ScrollPopupNotification({
 
                     {/* CTA Button */}
                     <Button
-                      onClick={ctaAction}
+                      onClick={() => {
+                        if (ctaUrl) window.open(ctaUrl, "_blank")
+                      }}
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm py-2 shadow-lg hover:shadow-xl transition-all duration-200"
                     >
                       <ShoppingBag className="w-4 h-4 mr-2" />
-                      Special Offer
+                      {ctaText}
                     </Button>
                   </div>
                 </div>
@@ -134,7 +138,7 @@ export default function ScrollPopupNotification({
 
       {/* Minimized Popup (floats to right) */}
       {isVisible && isMinimized && (
-        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-right-4 duration-300">
+        <div className="fixed bottom-6 left-6 z-50 animate-in slide-in-from-left-4 duration-300">
           <Card
             className="w-14 h-14 shadow-xl border-2 border-blue-200 bg-gradient-to-br from-blue-600 to-blue-700 cursor-pointer hover:scale-105 transition-transform duration-200"
             onClick={handleExpand}
