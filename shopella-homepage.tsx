@@ -6,6 +6,7 @@ import ProductGrid from "./components/product-grid"
 import Footer from "./components/footer"
 import CategorySection from "./components/category-section"
 import ProductSections from "./components/product-sections"
+import AdsBanner2 from "./components/ads-banner2"
 
 export default function ShopellaHomepage() {
   return (
@@ -17,6 +18,7 @@ export default function ShopellaHomepage() {
         <CategorySection />
         <ProductGrid />
         <ProductSections />
+        <AdsBanner2 />
       </Layout>
       <Footer />
     </div>

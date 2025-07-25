@@ -1,3 +1,5 @@
+"use client"
+"use client"
 import type { ReactNode } from "react"
 import ScrollPopupNotification from "./scroll-popup-notification"
 
@@ -14,15 +16,11 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Scroll Popup Notification */}
       <ScrollPopupNotification
-        title="🎉 Download Shopella App!"
-        description="Get exclusive mobile deals and 20% off your first app purchase. Don't miss out!"
+        title="🎉 Shopella Deal Offers"
+        description="Get exclusive deals and over 20% on Shopella."
         image="/placeholder.svg?height=80&width=80&text=App+Download"
-        ctaText="Download Now"
-        ctaAction={() => {
-          console.log("Download app clicked")
-          // Add your download logic here
-          window.open("https://play.google.com/store", "_blank")
-        }}
+        ctaText="Get Now"
+        ctaUrl="https://shopella.ng"
         scrollThreshold={400}
       />
     </div>

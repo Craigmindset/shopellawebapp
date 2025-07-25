@@ -14,9 +14,9 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.dev",
+  title: "shopella",
+  description: "online shopping platform",
+
 }
 
 export default function RootLayout({
